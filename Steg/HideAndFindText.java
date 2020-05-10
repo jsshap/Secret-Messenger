@@ -10,25 +10,31 @@ public class HideAndFindText{
 
     public static Scanner input = new Scanner(System.in);
     public static int[][] cryptoTable = new int[256][2];
-    public static void main (String[] args) throws Exception{
-	if (args.length == 0){
-	    showUsage();
-	}
-	if (args[0].toLowerCase().equals("usage")){
-	    showUsage();
-	}
-	String file = args[0];
-	makeTable();
-        
-        if (args[1].equals("Hide")){
-            addText (file);
+    public static void main (String[] args){
+        if (args.length != 2){
+            showUsage();
         }
-        else if (args[1].equals("Reveal")){
-            revealText(file);
+        if (args[0].toLowerCase().equals("usage")){
+            showUsage();
         }
-
+        String file = args[0];
+        makeTable();
         
-
+        try{
+            if (args[1].equals("Hide")){
+                addText (file);
+            }
+            else if (args[1].equals("Reveal")){
+                revealText(file);
+            }
+            else{
+                showUsage();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error with files.");
+            showUsage();
+        }
     }
     public static void revealText (String fileName) throws Exception {
         BufferedImage carrier = ImageIO.read(new File(fileName));
